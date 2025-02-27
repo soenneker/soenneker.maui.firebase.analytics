@@ -59,7 +59,7 @@ jobs:
         run: dotnet build --configuration Release --no-restore
 
       - name: Test (only .NET 9.0)
-        run: dotnet test test/Soenneker.Maui.Firebase.Tests/Soenneker.Maui.Firebase.Tests.csproj --framework net9.0 --no-restore --verbosity normal
+        run: dotnet test test/Soenneker.Maui.Firebase.Analytics.Tests/Soenneker.Maui.Firebase.Analytics.Tests.csproj --framework net9.0 --no-restore --verbosity normal
 
       - name: Pack
         run: dotnet pack --no-build --configuration Release --output .

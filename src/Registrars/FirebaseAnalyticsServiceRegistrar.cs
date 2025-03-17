@@ -13,15 +13,15 @@ namespace Soenneker.Maui.Firebase.Analytics.Registrars;
     public static class FirebaseAnalyticsServiceRegistrar
     {
 
-            public static IServiceCollection AddFirebaseAnalytics(this IServiceCollection services)
-            {
+        public static IServiceCollection AddFirebaseAnalyticsServiceAsSingleton(this IServiceCollection services)
+        {
 #if ANDROID
-        services.AddSingleton<IFirebaseAnalyticsService, FirebaseAnalyticsService>();
+    services.AddSingleton<IFirebaseAnalyticsService, FirebaseAnalyticsService>();
 #endif
 #if IOS
-        services.AddSingleton<IFirebaseAnalyticsService, FirebaseAnalyticsService>();
+    services.AddSingleton<IFirebaseAnalyticsService, FirebaseAnalyticsService>();
 #endif
-                return services;
-            }
+            return services;
+        }
         
     }

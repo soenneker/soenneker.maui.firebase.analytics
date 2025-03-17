@@ -49,8 +49,6 @@
     <ItemGroup>
         <PackageReference Include="Microsoft.Maui.Controls" Version="9.0.40" />
         <PackageReference Include="Soenneker.Maui.Firebase" Version="3.0.15" />
-        <PackageReference Include="Xamarin.Firebase.iOS.Analytics" Version="8.10.0.3" />
-
     </ItemGroup>
 
     <ItemGroup Condition="'$(TargetFramework)' == 'net9.0-android'">
@@ -61,6 +59,6 @@
 
 
     <ItemGroup Condition="'$(TargetFramework)' == 'net9.0-ios'">
-
+        <PackageReference Include="Xamarin.Firebase.iOS.Analytics" Version="8.10.0.3" />
     </ItemGroup>
 </Project>

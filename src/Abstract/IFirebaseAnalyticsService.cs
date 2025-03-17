@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Soenneker.Maui.Firebase.Services;
+namespace Soenneker.Maui.Firebase.Analytics.Abstract;
 
 public interface IFirebaseAnalyticsService
 {

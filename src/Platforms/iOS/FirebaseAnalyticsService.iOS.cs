@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Foundation;
-using Firebase.Analytics;
-using Soenneker.Maui.Firebase.Services;
+using Soenneker.Maui.Firebase.Analytics.Abstract;
 
 namespace Soenneker.Maui.Firebase.Analytics.Platforms.iOS;
 
@@ -15,8 +13,8 @@ public class FirebaseAnalyticsService : IFirebaseAnalyticsService
             var keys = new NSString[parameters.Count];
             var values = new NSObject[parameters.Count];
 
-            int i = 0;
-            foreach (var param in parameters)
+            var i = 0;
+            foreach (KeyValuePair<string, string> param in parameters)
             {
                 keys[i] = new NSString(param.Key);
                 values[i] = new NSString(param.Value);

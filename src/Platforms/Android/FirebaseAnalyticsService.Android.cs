@@ -1,9 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Android.App;
 using Android.OS;
 using Firebase.Analytics;
-using Soenneker.Maui.Firebase.Services;
+using Soenneker.Maui.Firebase.Analytics.Abstract;
 
 namespace Soenneker.Maui.Firebase.Analytics.Platforms.Android;
 
@@ -21,7 +20,7 @@ public class FirebaseAnalyticsService : IFirebaseAnalyticsService
         var bundle = new Bundle();
         if (parameters != null)
         {
-            foreach (var param in parameters)
+            foreach (KeyValuePair<string, string> param in parameters)
             {
                 bundle.PutString(param.Key, param.Value);
             }

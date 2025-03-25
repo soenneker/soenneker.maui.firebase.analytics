@@ -48,7 +48,7 @@
 
     <ItemGroup>
         <PackageReference Include="Microsoft.Maui.Controls" Version="9.0.50" />
-        <PackageReference Include="Soenneker.Maui.Firebase" Version="3.0.30" />
+        <PackageReference Include="Soenneker.Maui.Firebase" Version="3.0.31" />
     </ItemGroup>
 
     <ItemGroup Condition="'$(TargetFramework)' == 'net9.0-android'">

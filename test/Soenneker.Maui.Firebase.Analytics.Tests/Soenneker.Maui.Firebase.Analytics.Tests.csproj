@@ -27,7 +27,7 @@
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\..\src\Soenneker.Maui.Firebase.Analytics.csproj" />
+        <ProjectReference Include="..\..\src\Soenneker.Maui.Firebase.Analytics\Soenneker.Maui.Firebase.Analytics.csproj" />
     </ItemGroup>
 
     <ItemGroup>

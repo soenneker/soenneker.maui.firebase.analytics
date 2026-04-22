@@ -1,20 +1,14 @@
-<?xml version="1.0" encoding="utf-8"?>
-
 <Project Sdk="Microsoft.NET.Sdk">
-
     <PropertyGroup>
         <TargetFrameworks>net10.0;net10.0-android;net10.0-ios</TargetFrameworks>
         <SingleProject>true</SingleProject>
         <Nullable>enable</Nullable>
         <Platforms>AnyCPU</Platforms>
         <NoWarn>$(NoWarn);1591</NoWarn>
-
-        <SupportedOSPlatformVersion
-            Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios'">
+        <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios'">
             15.0
         </SupportedOSPlatformVersion>
-        <SupportedOSPlatformVersion
-            Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">
+        <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">
             21.0
         </SupportedOSPlatformVersion>
     </PropertyGroup>
@@ -66,7 +60,6 @@
             <Version>123.0.0.3</Version>
         </PackageReference>
     </ItemGroup>
-
 
     <ItemGroup Condition="'$(TargetFramework)' == 'net10.0-ios'">
         <PackageReference Include="Xamarin.Firebase.iOS.Analytics" Version="8.10.0.3" />

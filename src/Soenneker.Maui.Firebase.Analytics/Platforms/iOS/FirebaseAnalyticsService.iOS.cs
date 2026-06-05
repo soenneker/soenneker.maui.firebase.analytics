@@ -4,6 +4,7 @@ using Soenneker.Maui.Firebase.Analytics.Abstract;
 
 namespace Soenneker.Maui.Firebase.Analytics.Platforms.iOS;
 
+/// <inheritdoc cref="IFirebaseAnalyticsService"/>
 public class FirebaseAnalyticsService : IFirebaseAnalyticsService
 {
     public void LogEvent(string eventName, Dictionary<string, string>? parameters = null)

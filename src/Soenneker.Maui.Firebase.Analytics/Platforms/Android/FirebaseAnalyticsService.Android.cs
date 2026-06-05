@@ -6,6 +6,7 @@ using Soenneker.Maui.Firebase.Analytics.Abstract;
 
 namespace Soenneker.Maui.Firebase.Analytics.Platforms.Android;
 
+/// <inheritdoc cref="IFirebaseAnalyticsService"/>
 public class FirebaseAnalyticsService : IFirebaseAnalyticsService
 {
     private readonly FirebaseAnalytics _firebaseAnalytics;

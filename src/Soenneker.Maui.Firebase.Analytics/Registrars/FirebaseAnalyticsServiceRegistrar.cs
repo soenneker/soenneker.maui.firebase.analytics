@@ -17,10 +17,10 @@ namespace Soenneker.Maui.Firebase.Analytics.Registrars;
     {
 
         /// <summary>
-        /// Adds firebase analytics service as singleton.
+        /// Registers Firebase Analytics Service with a singleton lifetime.
         /// </summary>
-        /// <param name="services">The service collection.</param>
-        /// <returns>The result of the operation.</returns>
+        /// <param name="services">Service collection that receives the registration.</param>
+        /// <returns>The same service collection, so additional registrations can be chained.</returns>
         public static IServiceCollection AddFirebaseAnalyticsServiceAsSingleton(this IServiceCollection services)
         {
 #if ANDROID

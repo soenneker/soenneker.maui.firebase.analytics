@@ -4,7 +4,6 @@ using Soenneker.Maui.Firebase.Analytics.Abstract;
 
 namespace Soenneker.Maui.Firebase.Analytics.Platforms.iOS;
 
-/// <inheritdoc cref="IFirebaseAnalyticsService"/>
 public class FirebaseAnalyticsService : IFirebaseAnalyticsService
 {
     public void LogEvent(string eventName, Dictionary<string, string>? parameters = null)
@@ -22,12 +21,26 @@ public class FirebaseAnalyticsService : IFirebaseAnalyticsService
                 i++;
             }
 
-            var dict = new NSDictionary<NSString, NSObject>(keys, values);
-            global::Firebase.Analytics.Analytics.LogEvent(eventName, dict);
+            var dictionary = new NSDictionary<NSString, NSObject>(keys, values);
+
+            try
+            {
+                global::Firebase.Analytics.Analytics.LogEvent(eventName, dictionary);
+            }
+            finally
+            {
+                dictionary.Dispose();
+
+                foreach (NSString key in keys)
+                    key.Dispose();
+
+                foreach (NSObject value in values)
+                    value.Dispose();
+            }
         }
         else
         {
-            var emptyDict = new NSDictionary<NSString, NSObject>();
+            using var emptyDict = new NSDictionary<NSString, NSObject>();
             global::Firebase.Analytics.Analytics.LogEvent(eventName, emptyDict);
         }
     }

@@ -1,44 +1,61 @@
+# Soenneker.Maui.Firebase.Analytics
 [![](https://img.shields.io/nuget/v/soenneker.maui.firebase.analytics.svg?style=for-the-badge)](https://www.nuget.org/packages/soenneker.maui.firebase.analytics/)
 [![](https://img.shields.io/github/actions/workflow/status/soenneker/soenneker.maui.firebase.analytics/publish-package.yml?style=for-the-badge)](https://github.com/soenneker/soenneker.maui.firebase.analytics/actions/workflows/publish-package.yml)
 [![](https://img.shields.io/nuget/dt/soenneker.maui.firebase.analytics.svg?style=for-the-badge)](https://www.nuget.org/packages/soenneker.maui.firebase.analytics/)
 [![](https://img.shields.io/github/actions/workflow/status/soenneker/soenneker.maui.firebase.analytics/codeql.yml?label=CodeQL&style=for-the-badge)](https://github.com/soenneker/soenneker.maui.firebase.analytics/actions/workflows/codeql.yml)
 
-# Soenneker.Maui.Firebase.Analytics
+Provides a small Android and iOS abstraction for logging Firebase Analytics events and setting user attributes from a .NET MAUI app.
 
-Provides an interface for Firebase Analytics services to log events and manage user properties.
-
-## Install
+## Installation
 
 ```bash
 dotnet add package Soenneker.Maui.Firebase.Analytics
 ```
 
-## Quick start
+Configure the native Firebase app first with `Soenneker.Maui.Firebase`, including the platform's `google-services.json` or `GoogleService-Info.plist`.
+
+## Registration
+
+Register the analytics service in `MauiProgram.CreateMauiApp`:
 
 ```csharp
 using Soenneker.Maui.Firebase.Analytics.Registrars;
-using Microsoft.Extensions.DependencyInjection;
+using Soenneker.Maui.Firebase.Dtos;
+using Soenneker.Maui.Firebase.Registrars;
 
-var services = new ServiceCollection();
-var result = services.AddFirebaseAnalyticsServiceAsSingleton();
+builder.UseFirebase(new FirebaseConfig())
+       .Build();
+
+builder.Services.AddFirebaseAnalyticsServiceAsSingleton();
 ```
 
-Registers Firebase Analytics Service with a singleton lifetime.
+The service is registered only for Android and iOS targets.
 
-## What you get
+## Usage
 
-- `IFirebaseAnalyticsService` — Provides an interface for Firebase Analytics services to log events and manage user properties.
-- `FirebaseAnalyticsServiceRegistrar` — Represents the firebase analytics service registrar.
+Inject `IFirebaseAnalyticsService` into a page, view model, or application service:
 
-## API at a glance
+```csharp
+using Soenneker.Maui.Firebase.Analytics.Abstract;
 
-| API | What it does | Result / important behavior |
-| --- | --- | --- |
-| `IFirebaseAnalyticsService.LogEvent(eventName, parameters)` | Logs an event to Firebase Analytics. | Returns no value; the requested change is complete when the method returns. |
-| `IFirebaseAnalyticsService.SetUserId(userId)` | Sets the user ID for Firebase Analytics. | Returns no value; the requested change is complete when the method returns. |
-| `IFirebaseAnalyticsService.SetUserProperty(propertyName, propertyValue)` | Assigns a custom user property in Firebase Analytics. | User properties help categorize users based on custom attributes, improving analytics insights. |
-| `FirebaseAnalyticsServiceRegistrar.AddFirebaseAnalyticsServiceAsSingleton(services)` | Registers Firebase Analytics Service with a singleton lifetime. | The same service collection, so additional registrations can be chained. |
+public sealed class CheckoutTracker(IFirebaseAnalyticsService analytics)
+{
+    public void Completed(string orderType)
+    {
+        analytics.LogEvent("checkout_completed", new Dictionary<string, string>
+        {
+            ["order_type"] = orderType
+        });
+    }
 
-## Important behavior
+    public void IdentifySignedInUser(string internalUserId)
+    {
+        analytics.SetUserId(internalUserId);
+        analytics.SetUserProperty("account_tier", "pro");
+    }
+}
+```
 
-- `IFirebaseAnalyticsService.SetUserProperty(propertyName, propertyValue)`: User properties help categorize users based on custom attributes, improving analytics insights.
+Event parameters in this abstraction are string values. Event names, parameter names, and user-property names must satisfy Firebase Analytics naming and quota rules; invalid data is handled by the native SDK.
+
+Use an opaque application identifier for `SetUserId`. Do not send names, email addresses, or other personally identifiable information, and obtain any consent required by the app's privacy policy before collecting analytics.
